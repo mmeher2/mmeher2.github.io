@@ -33,7 +33,7 @@
 
 
 
-         var r= 100;
+         var r= 250;
        var data = [10,20,40];
 
        var  color = d3.scale.ordinal()
@@ -41,8 +41,8 @@
 
        var canvas=d3.select("body")
              .append("svg")
-             .attr("width",600)
-             .attr("height",600); 
+             .attr("width",300)
+             .attr("height",300); 
 
 
      
@@ -51,7 +51,7 @@
                    .attr("transform","translate(300,300)");
 
        var arc =  d3.svg.arc()
-                .innerRadius(200)
+                .innerRadius(100)
                 .outerRadius(r);
 
        var pie = d3.layout.pie()
@@ -70,7 +70,7 @@
       arcs.append("text")
           .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"})
           .attr("text-anchor","middle")
-           .attr("font-size","1.5cm")
+           .attr("font-size","1.0cm")
            .text(function (d) {return d.data; });
      
      </script>
