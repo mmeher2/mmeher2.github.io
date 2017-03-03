@@ -1,9 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<title>My first webpage</title>
-	</head>
-  <body>
-  hi...
+<head>
+  <title> my first d3 </title>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+   <script type="text/javascript" 
+	    src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
+    <script type="text/javascript">
+        function initViz() {
+            var containerDiv = document.getElementById("vizContainer"),
+                url = "http://public.tableau.com/views/RegionalSampleWorkbook/Storms",
+                options = {
+                    hideTabs: true,
+                    onFirstInteractive: function () {
+                        console.log("Run this code when the viz has finished loading.");
+                    }
+                };
+            
+            var viz = new tableau.Viz(containerDiv, url, options); 
+            // Create a viz object and embed it in the container div.
+        }
+    </script>
+</head>
+
+  <body onload="initViz();">
+     <div id="vizContainer" style="width:800px; height:700px;"></div>
+     <h1>Donut Chart</h1>
+     <script>
+      
+
+
+
+         var r= 100;
+       var data = [10,20,40];
+
+       var  color = d3.scale.ordinal()
+                    .range(["red","green","blue"]);
+
+       var canvas=d3.select("body")
+             .append("svg")
+             .attr("width",600)
+             .attr("height",600); 
+
+
+     
+
+       var group = canvas.append("g")
+                   .attr("transform","translate(300,300)");
+
+       var arc =  d3.svg.arc()
+                .innerRadius(200)
+                .outerRadius(r);
+
+       var pie = d3.layout.pie()
+                .value(function(d) {   return d; });
+
+      var arcs =  group.selectAll(".arc")
+                 .data(pie(data))
+                 .enter()
+                  .append("g")
+                  .attr("class","arc");
+      arcs.append("path")
+           .attr("d",arc)
+           .attr("fill",function (d) {return color(d.data);});
+
+     
+      arcs.append("text")
+          .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"})
+          .attr("text-anchor","middle")
+           .attr("font-size","1.5cm")
+           .text(function (d) {return d.data; });
+     
+     </script>
   </body>
-  </html>
+</html>
